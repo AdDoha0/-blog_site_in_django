@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+
+
+
+{% block header %}{% endblock  %}
+
+
+{% block content %}
+{% block content %}
+<!-- Page content-->
+<div class="container">
+    <div class="row">
+        <!-- Blog entries-->
+        <div class="col-lg-8">
+            <!-- Featured blog post-->
+            <div class="card mb-4">
+                <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                <div class="card-body">
+                    <div class="small text-muted">{{ featured_post.time_create|date:"F j, Y" }}</div>
+                    <h2 class="card-title">{{ featured_post.title }}</h2>
+                    <p class="card-text">{{ featured_post.content|truncatewords:20 }}</p>
+                    <a class="btn btn-primary" href="#!">Read more →</a>
+                </div>
+            </div>
+            <!-- Nested row for non-featured blog posts-->
+            <div class="row">
+
+                {% for post in posts %}
+                    {% if post.is_published %}
+                    <div class="col-lg-6">
+                        <!-- Blog post-->
+                        <div class="card mb-4">
+                            <a href="#"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{{ post.time_create|date:"F j, Y" }}</div>
+                                <h2 class="card-title h4">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+                                <p class="small text-muted">Category: {{ post.cat.name }}</p>
+                                <a class="btn btn-primary" href="#">Read more →</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+{% endblock %}
