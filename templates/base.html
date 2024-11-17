@@ -36,7 +36,7 @@
 
         {% endblock  %}
         <!-- Page content-->
->       {% block content %}
+        {% block content %}
 
         {% endblock %}
         <!-- Pagination-->
@@ -72,10 +72,14 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <ul class="list-unstyled mb-0">
-                            {% posts_tags as categories %}
-                            {% for category in categories %}
-                                <li><a href="#!">{{ category.name }}</a></li>
-                            {% endfor %}
+
+                            <ul>
+                                {% tag_categories as categories %}  <!-- Использование пользовательского тега -->
+                                {% for category in categories %}
+                                    <li><a href="#!">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+
                         </ul>
                     </div>
                 </div>
