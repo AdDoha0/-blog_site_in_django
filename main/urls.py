@@ -8,4 +8,6 @@ app_name = "main"
 urlpatterns = [
     path("all/", views.IndexView.as_view(), name="all_posts"),
     path("category/<slug:cat_slug>", views.CategoryPosts.as_view(), name="category"),
+    path('post/', views.ShowPost.as_view(), name='post'),
+    # <slug:post_slug>/
 ]

@@ -1,7 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import Post
 
@@ -39,3 +39,10 @@ class CategoryPosts(ListView):
         except Post.DoesNotExist:
             context['featured_post'] = None  # Если нет избранного поста
         return context
+
+# DetailView
+class ShowPost(TemplateView):
+    # model = Post
+    template_name = 'main/showpost.html'
+    # slug_url_kwarg = 'post_slug'
+    # context_object_name = 'post'

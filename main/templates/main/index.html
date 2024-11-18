@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load posts_tags %}
 
 
 {% block header %}
@@ -29,7 +30,7 @@
                     <div class="small text-muted">{{ featured_post.time_create|date:"F j, Y" }}</div>
                     <h2 class="card-title">{{ featured_post.title }}</h2>
                     <p class="card-text">{{ featured_post.content|truncatewords:20 }}</p>
-                    <a class="btn btn-primary" href="#!">Read more →</a>
+                    <a class="btn btn-primary" href="{% url "main:post" %}">Читать дальше →</a>
                 </div>
             </div>
             <!-- Nested row for non-featured blog posts-->
@@ -46,7 +47,7 @@
                                 <h2 class="card-title h4">{{ post.title }}</h2>
                                 <p class="card-text">{{ post.content|truncatewords:20 }}</p>
                                 <p class="small text-muted">Категория: {{ post.cat.name }}</p>
-                                <a class="btn btn-primary" href="#">Read more →</a>
+                                <a class="btn btn-primary" href="{% url "main:post" %}">">Читать дальше →</a>
                             </div>
                         </div>
                     </div>
@@ -58,4 +59,45 @@
 
 
 
+{% block widgets %}
+<!-- Side widgets-->
+<div class="col-lg-4">
+    <!-- Search widget-->
+    <div class="card mb-4">
+        <div class="card-header">Search</div>
+        <div class="card-body">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+            </div>
+        </div>
+    </div>
+    <!-- Categories widget-->
+    <div class="card mb-4">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6">
+                    <ul class="list-unstyled mb-0">
 
+                        <ul>
+                            {% tag_categories as categories %}  <!-- Использование пользовательского тега -->
+                            {% for category in categories %}
+                                <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Side widget-->
+    <div class="card mb-4">
+        <div class="card-header">Side Widget</div>
+        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}
