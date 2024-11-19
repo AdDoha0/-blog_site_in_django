@@ -40,9 +40,10 @@ class CategoryPosts(ListView):
             context['featured_post'] = None  # Если нет избранного поста
         return context
 
-# DetailView
-class ShowPost(TemplateView):
-    # model = Post
+
+class ShowPost(DetailView):
+    model = Post
     template_name = 'main/showpost.html'
-    # slug_url_kwarg = 'post_slug'
-    # context_object_name = 'post'
+    slug_url_kwarg = 'post_slug'
+    slug_field = 'slug'
+    context_object_name = 'post'
