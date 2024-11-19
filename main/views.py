@@ -6,12 +6,25 @@ from django.views.generic import ListView, DetailView, TemplateView
 from .models import Post
 
 
-class IndexView(ListView):
-    template_name = 'main/index.html'
-    context_object_name  = "posts"
+
+
+
+
+
+
+class PostsView(ListView):
+    template_name = 'main/index.html'  # Укажите путь к вашему шаблону
+    context_object_name = "posts"
     allow_empty = False
+    paginate_by = 5
 
     def get_queryset(self):
+        # Получаем параметр cat_slug из URL
+        cat_slug = self.kwargs.get("cat_slug")
+        if cat_slug:
+            # Если cat_slug присутствует, фильтруем посты по категории
+            return Post.objects.filter(cat__slug=cat_slug).select_related("cat").order_by('-time_create')
+        # Если cat_slug отсутствует, возвращаем все посты
         return Post.objects.all().select_related("cat").order_by('-time_create')
 
     def get_context_data(self, **kwargs):
@@ -23,22 +36,6 @@ class IndexView(ListView):
         return context
 
 
-class CategoryPosts(ListView):
-    template_name = 'main/category.html'
-    context_object_name  = "posts"
-    allow_empty = False
-
-    def get_queryset(self, **kwargs):
-        return Post.objects.filter(cat__slug=self.kwargs["cat_slug"]).select_related("cat").order_by('-time_create')
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            context['featured_post'] = Post.objects.get(is_featured=True)
-        except Post.DoesNotExist:
-            context['featured_post'] = None  # Если нет избранного поста
-        return context
 
 
 class ShowPost(DetailView):
