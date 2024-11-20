@@ -1,15 +1,12 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, TemplateView, CreateView
+
+from main.forms import AddPostForm
 
 from .models import Post
-
-
-
-
-
-
 
 
 class PostsView(ListView):
@@ -44,3 +41,12 @@ class ShowPost(DetailView):
     slug_url_kwarg = 'post_slug'
     slug_field = 'slug'
     context_object_name = 'post'
+
+
+
+
+
+class AddPost(CreateView):
+    template_name = "main/createpost.html"
+    form_class = AddPostForm
+    success_url = reverse_lazy('main:all_posts')
