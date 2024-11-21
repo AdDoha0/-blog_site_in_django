@@ -12,4 +12,4 @@ class LoginUser(LoginView):
     form_class = LoginUserForm
 
     def get_success_url(self):
-        return reverse_lazy('all_posts')
+        return reverse_lazy('main:all_posts')
