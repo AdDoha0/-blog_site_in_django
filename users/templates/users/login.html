@@ -2,6 +2,13 @@
 {% load posts_tags %}
 
 
+
+
+
+
+
+
+
 {% block content %}
 <div class="container mt-5 mb-5">
     <h2 class="text-center">Вход в систему</h2>
@@ -23,5 +30,9 @@
         {% endfor %}
         <button type="submit" class="btn btn-primary btn-block">Войти</button>
     </form>
+    <div class="text-center mt-3">
+        <p>Вы еще не зарегистрированы? <a href="{% url 'users:register' %}">Зарегистрируйтесь</a></p>
+    </div>
 </div>
-{% endblock  %}
+{% endblock %}
+
