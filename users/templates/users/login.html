@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load posts_tags %}
+
 
 
 
@@ -32,6 +32,9 @@
     </form>
     <div class="text-center mt-3">
         <p>Вы еще не зарегистрированы? <a href="{% url 'users:register' %}">Зарегистрируйтесь</a></p>
+    </div>
+    <div class="text-center mt-3">
+        <p><a href="{% url 'users:password_reset' %}">Забыли пороль?</a></p>
     </div>
 </div>
 {% endblock %}
