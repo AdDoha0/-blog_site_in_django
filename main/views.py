@@ -3,6 +3,9 @@ from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 
 from main.forms import AddPostForm
 
@@ -46,7 +49,8 @@ class ShowPost(DetailView):
 
 
 
-class AddPost(CreateView):
+class AddPost(LoginRequiredMixin, CreateView):
     template_name = "main/createpost.html"
     form_class = AddPostForm
     success_url = reverse_lazy('main:all_posts')
+    login_url = reverse_lazy('users:login')
